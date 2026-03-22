@@ -293,19 +293,19 @@ namespace Manager.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3c926fbf-82dd-4291-8d56-f5e27eaf7672",
+                            Id = "918079f1-2b0a-46b9-8860-1046c5912a00",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "bbdd5e7d-3f89-497b-a84f-2a5eddf3432a",
+                            Id = "f7debb21-dc4c-413d-8644-e50cfae19559",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "dd452e5b-ec08-4bca-ad04-a66246daea97",
+                            Id = "47e06572-5580-4155-9811-82628dab1a3a",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });

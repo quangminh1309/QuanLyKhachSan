@@ -19,6 +19,14 @@ namespace Manager.API.Data
         public DbSet<Discount> Discounts { get; set; }
 
 
+        //
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceService> InvoiceServices { get; set; }
+        public DbSet<LostItem> LostItems { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Incident> Incidents { get; set; }
+        //
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +46,61 @@ namespace Manager.API.Data
             modelBuilder.Entity<RoomRate>()
                 .Property(p => p.Price)
                 .HasPrecision(10, 2);
+
+            /////////////////////////////////////////////////////////////////////
+            modelBuilder.Entity<Booking>()
+                .Property(p => p.TotalPrice).HasPrecision(10, 2);
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Room)
+                .WithMany()
+                .HasForeignKey(b => b.RoomId);
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.UserId);
+
+            // Invoice (1-1 với Booking)
+            modelBuilder.Entity<Invoice>()
+                .HasOne(i => i.Booking)
+                .WithOne(b => b.Invoice)
+                .HasForeignKey<Invoice>(i => i.BookingId);
+            modelBuilder.Entity<Invoice>()
+                .Property(p => p.TotalAmount).HasPrecision(10, 2);
+            modelBuilder.Entity<Invoice>()
+                .Property(p => p.RoomCharge).HasPrecision(10, 2);
+            modelBuilder.Entity<Invoice>()
+                .Property(p => p.ServiceCharge).HasPrecision(10, 2);
+            modelBuilder.Entity<Invoice>()
+                .Property(p => p.Discount).HasPrecision(10, 2);
+
+            modelBuilder.Entity<InvoiceService>()
+                .HasOne(is_ => is_.Invoice)
+                .WithMany(i => i.InvoiceServices)
+                .HasForeignKey(is_ => is_.InvoiceId);
+            modelBuilder.Entity<InvoiceService>()
+                .HasOne(is_ => is_.Service)
+                .WithMany()
+                .HasForeignKey(is_ => is_.ServiceId);
+            modelBuilder.Entity<InvoiceService>()
+                .Property(p => p.UnitPrice).HasPrecision(10, 2);
+            modelBuilder.Entity<InvoiceService>()
+                .Property(p => p.TotalPrice).HasPrecision(10, 2);
+
+            modelBuilder.Entity<LostItem>()
+                .HasOne(l => l.Booking)
+                .WithMany(b => b.LostItems)
+                .HasForeignKey(l => l.BookingId);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.Booking)
+                .WithMany(b => b.Reviews)
+                .HasForeignKey(r => r.BookingId);
+
+            modelBuilder.Entity<Incident>()
+                .HasOne(i => i.Booking)
+                .WithMany(b => b.Incidents)
+                .HasForeignKey(i => i.BookingId);
+            ///////////////////////////////////////////////////////////////////
 
             List<IdentityRole> roles = new List<IdentityRole>
             {

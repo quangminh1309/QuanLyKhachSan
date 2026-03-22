@@ -1,0 +1,63 @@
+﻿using Manager.API.Dtos.LostItem;
+using Manager.API.Interfaces;
+using Manager.API.Mappers;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Manager.API.Controllers
+{
+    [Route("api/LostItem")]
+    [ApiController]
+    public class LostItemController : ControllerBase
+    {
+        private readonly ILostItemRepository _lostItemRepository;
+        public LostItemController(ILostItemRepository lostItemRepository)
+        {
+            _lostItemRepository = lostItemRepository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var items = await _lostItemRepository.GetAllAsync();
+            if (items == null || items.Count == 0)
+                return NotFound("No lost items found.");
+            var dtos = items.Select(i => i.ToLostItemDto());
+            return Ok(dtos);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var item = await _lostItemRepository.GetByIdAsync(id);
+            if (item == null)
+                return NotFound($"No lost item found with id {id}.");
+            return Ok(item.ToLostItemDto());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateLostItemDto dto)
+        {
+            var item = dto.ToLostItem();
+            var created = await _lostItemRepository.CreateAsync(item);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created.ToLostItemDto());
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateLostItemDto dto)
+        {
+            var updated = await _lostItemRepository.UpdateAsync(id, dto);
+            if (updated == null)
+                return NotFound($"No lost item found with id {id}.");
+            return Ok(updated.ToLostItemDto());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _lostItemRepository.DeleteAsync(id);
+            if (deleted == null)
+                return NotFound($"No lost item found with id {id}.");
+            return Ok(deleted.ToLostItemDto());
+        }
+    }
+}

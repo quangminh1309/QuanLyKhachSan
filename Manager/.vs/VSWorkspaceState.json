@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Manager.API",
+    "\\Manager.API\\Controllers",
+    "\\Manager.API\\Dtos\\Incident",
+    "\\Manager.API\\Dtos\\LostItem",
+    "\\Manager.API\\Dtos\\Review"
+  ],
+  "SelectedNode": "\\Manager.API\\Controllers\\IncidentController.cs",
+  "PreviewInSolutionExplorer": false
+}
