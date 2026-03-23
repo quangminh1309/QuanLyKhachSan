@@ -1,4 +1,3 @@
-﻿using Manager.API.Dtos.Booking;
 using Manager.API.Models;
 
 namespace Manager.API.Interfaces
@@ -7,8 +6,11 @@ namespace Manager.API.Interfaces
     {
         Task<List<Booking>> GetAllAsync();
         Task<Booking?> GetByIdAsync(int id);
+        Task<List<Booking>> GetByUserIdAsync(string userId);
         Task<Booking> CreateAsync(Booking booking);
-        Task<Booking?> UpdateAsync(int id, UpdateBookingDto dto);
+        Task<Booking?> UpdateAsync(int id, Booking booking);
         Task<Booking?> DeleteAsync(int id);
+        Task<bool> BookingExistsAsync(int id);
+        Task<List<Booking>> GetBookingsByDateRangeAsync(DateTime startDate, DateTime endDate);
     }
 }

@@ -1,5 +1,4 @@
-﻿using Manager.API.Data;
-using Manager.API.Dtos.Booking;
+using Manager.API.Data;
 using Manager.API.Interfaces;
 using Manager.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,7 @@ namespace Manager.API.Repository
     public class BookingRepository : IBookingRepository
     {
         private readonly ApplicationDBContext _context;
+
         public BookingRepository(ApplicationDBContext context)
         {
             _context = context;
@@ -16,38 +16,64 @@ namespace Manager.API.Repository
 
         public async Task<List<Booking>> GetAllAsync()
         {
-            return await _context.Bookings.ToListAsync();
+            return await _context.Bookings
+                .Include(b => b.Room)
+                .Include(b => b.User)
+                .Include(b => b.BookingServices)
+                    .ThenInclude(bs => bs.Service)
+                .ToListAsync();
         }
 
         public async Task<Booking?> GetByIdAsync(int id)
         {
-            return await _context.Bookings.FindAsync(id);
+            return await _context.Bookings
+                .Include(b => b.Room)
+                .Include(b => b.User)
+                .Include(b => b.BookingServices)
+                    .ThenInclude(bs => bs.Service)
+                .Include(b => b.Payments)
+                .FirstOrDefaultAsync(b => b.Id == id);
+        }
+
+        public async Task<List<Booking>> GetByUserIdAsync(string userId)
+        {
+            return await _context.Bookings
+                .Include(b => b.Room)
+                .Include(b => b.BookingServices)
+                    .ThenInclude(bs => bs.Service)
+                .Where(b => b.UserId == userId)
+                .OrderByDescending(b => b.CreatedAt)
+                .ToListAsync();
         }
 
         public async Task<Booking> CreateAsync(Booking booking)
         {
-            booking.CreateAt = DateTime.Now;
-            booking.UpdateAt = DateTime.Now;
-            booking.Status = "Pending";
+            booking.CreatedAt = DateTime.Now;
+            booking.UpdatedAt = DateTime.Now;
+            if (string.IsNullOrEmpty(booking.Status))
+                booking.Status = "Pending";
+
             await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
             return booking;
         }
 
-        public async Task<Booking?> UpdateAsync(int id, UpdateBookingDto dto)
+        public async Task<Booking?> UpdateAsync(int id, Booking booking)
         {
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null) return null;
+            var existingBooking = await _context.Bookings.FindAsync(id);
+            if (existingBooking == null) return null;
 
-            booking.CheckInDate = dto.CheckInDate;
-            booking.CheckOutDate = dto.CheckOutDate;
-            booking.Status = dto.Status;
-            booking.RentType = dto.RentType;
-            booking.TotalPrice = dto.TotalPrice;
-            booking.UpdateAt = DateTime.Now;
+            existingBooking.CheckInDate = booking.CheckInDate;
+            existingBooking.CheckOutDate = booking.CheckOutDate;
+            existingBooking.NumberOfGuests = booking.NumberOfGuests;
+            existingBooking.Status = booking.Status;
+            existingBooking.RentType = booking.RentType;
+            existingBooking.TotalPrice = booking.TotalPrice;
+            existingBooking.SpecialRequests = booking.SpecialRequests;
+            existingBooking.UpdatedAt = DateTime.Now;
 
             await _context.SaveChangesAsync();
-            return booking;
+            return existingBooking;
         }
 
         public async Task<Booking?> DeleteAsync(int id)
@@ -58,6 +84,20 @@ namespace Manager.API.Repository
             _context.Bookings.Remove(booking);
             await _context.SaveChangesAsync();
             return booking;
+        }
+
+        public async Task<bool> BookingExistsAsync(int id)
+        {
+            return await _context.Bookings.AnyAsync(b => b.Id == id);
+        }
+
+        public async Task<List<Booking>> GetBookingsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            return await _context.Bookings
+                .Include(b => b.Room)
+                .Include(b => b.Payments)
+                .Where(b => b.CheckInDate >= startDate && b.CheckInDate <= endDate)
+                .ToListAsync();
         }
     }
 }

@@ -4014,23 +4014,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tran Mai Lan\\.nuget\\packages\\": {},
+    "C:\\Users\\Dung\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tran Mai Lan\\OneDrive\\Documents\\6th semester\\CN Web\\Manager\\Manager.API\\Manager.API.csproj",
+      "projectUniqueName": "D:\\Code\\Project\\New folder\\1\\Website-Hotel-booking-and-management\\Manager\\Manager.API\\Manager.API.csproj",
       "projectName": "Manager.API",
-      "projectPath": "C:\\Users\\Tran Mai Lan\\OneDrive\\Documents\\6th semester\\CN Web\\Manager\\Manager.API\\Manager.API.csproj",
-      "packagesPath": "C:\\Users\\Tran Mai Lan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tran Mai Lan\\OneDrive\\Documents\\6th semester\\CN Web\\Manager\\Manager.API\\obj\\",
+      "projectPath": "D:\\Code\\Project\\New folder\\1\\Website-Hotel-booking-and-management\\Manager\\Manager.API\\Manager.API.csproj",
+      "packagesPath": "C:\\Users\\Dung\\.nuget\\packages\\",
+      "outputPath": "D:\\Code\\Project\\New folder\\1\\Website-Hotel-booking-and-management\\Manager\\Manager.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Tran Mai Lan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dung\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4057,7 +4057,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net9.0": {
@@ -4119,7 +4119,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

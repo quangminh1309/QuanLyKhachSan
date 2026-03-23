@@ -28,5 +28,14 @@ namespace Manager.API.Mappers
                 CreateAt = DateTime.Now,
             };
         }
+        public static UpdateRoomRequestDto ToUpdateRoomRequestDto(this Rooms room)
+        {
+            return new UpdateRoomRequestDto
+            {
+                RoomNumber = room.RoomNumber,
+                RoomTypeId = room.RoomTypeId,
+                CurrentStatus = room.CurrentStatus
+            };
+        }
     }
 }
