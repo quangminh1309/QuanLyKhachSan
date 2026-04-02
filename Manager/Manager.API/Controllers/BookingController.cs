@@ -190,5 +190,75 @@ namespace Manager.API.Controllers
 
             return Ok(new { message = "Booking cancelled successfully." });
         }
+
+        [HttpGet("history")]
+        [Authorize]
+        public async Task<IActionResult> GetBookingHistory()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            var bookings = await _bookingRepo.GetByUserIdAsync(user.Id);
+            var dtos = bookings.Select(b => b.ToBookingDto()).OrderByDescending(b => b.CreatedAt);
+            return Ok(dtos);
+        }
+
+        [HttpPost("{id:int}/request-refund")]
+        [Authorize]
+        public async Task<IActionResult> RequestRefund([FromRoute] int id, [FromBody] RefundRequestDto dto)
+        {
+            var booking = await _bookingRepo.GetByIdAsync(id);
+            if (booking == null)
+                return NotFound($"No booking found with id {id}.");
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            if (booking.UserId != user.Id)
+                return Forbid();
+
+            if (booking.Status != "Cancelled")
+                return BadRequest("Can only request refund for cancelled bookings.");
+
+            booking.RefundRequested = true;
+            booking.RefundReason = dto.Reason;
+            booking.RefundRequestedAt = DateTime.Now;
+            await _bookingRepo.UpdateAsync(id, booking);
+
+            return Ok(new { message = "Refund request submitted successfully." });
+        }
+
+        [HttpPost("{id:int}/cancel-refund-request")]
+        [Authorize]
+        public async Task<IActionResult> CancelRefundRequest([FromRoute] int id)
+        {
+            var booking = await _bookingRepo.GetByIdAsync(id);
+            if (booking == null)
+                return NotFound($"No booking found with id {id}.");
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            if (booking.UserId != user.Id)
+                return Forbid();
+
+            if (!booking.RefundRequested)
+                return BadRequest("No refund request found.");
+
+            booking.RefundRequested = false;
+            booking.RefundReason = null;
+            booking.RefundRequestedAt = null;
+            await _bookingRepo.UpdateAsync(id, booking);
+
+            return Ok(new { message = "Refund request cancelled successfully." });
+        }
     }
+}
+
+public class RefundRequestDto
+{
+    public string Reason { get; set; } = string.Empty;
 }

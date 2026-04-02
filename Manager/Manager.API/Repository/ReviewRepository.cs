@@ -55,5 +55,24 @@ namespace Manager.API.Repository
             await _context.SaveChangesAsync();
             return review;
         }
+
+        public async Task<List<Review>> GetByRoomIdAsync(int roomId)
+        {
+            return await _context.Reviews
+                .Include(r => r.Booking)
+                .Where(r => r.Booking.RoomId == roomId)
+                .OrderByDescending(r => r.CreateAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<Review>> GetByUsernameAsync(string username)
+        {
+            return await _context.Reviews
+                .Include(r => r.Booking)
+                .ThenInclude(b => b.User)
+                .Where(r => r.Booking.User.UserName == username)
+                .OrderByDescending(r => r.CreateAt)
+                .ToListAsync();
+        }
     }
 }

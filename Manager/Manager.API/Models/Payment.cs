@@ -12,6 +12,6 @@ namespace Manager.API.Models
         public string? Notes { get; set; }
 
         // Điều hướng
-        public Booking Booking { get; set; }
+        public Booking Booking { get; set; } = null!;
     }
 }

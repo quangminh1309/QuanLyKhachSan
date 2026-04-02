@@ -13,7 +13,7 @@
         public DateTime UpdateAt { get; set; } = DateTime.Now;
 
         // Navigation
-        public Booking Booking { get; set; }
-        public ICollection<InvoiceService> InvoiceServices { get; set; }
+        public Booking Booking { get; set; } = null!;
+        public ICollection<InvoiceService> InvoiceServices { get; set; } = new List<InvoiceService>();
     }
 }

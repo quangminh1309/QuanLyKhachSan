@@ -9,7 +9,7 @@ namespace Manager.API.Models
         public DateTime? ClosedAt { get; set; }
 
         // Điều hướng
-        public AppUser User { get; set; }
-        public ICollection<ChatMessage> Messages { get; set; }
+        public AppUser User { get; set; } = null!;
+        public ICollection<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
     }
 }

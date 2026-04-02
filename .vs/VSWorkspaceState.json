@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Manager",
+    "\\Manager\\Manager.API",
+    "\\Manager\\Manager.API\\Controllers",
+    "\\Manager\\Manager.API\\Mappers",
+    "\\Manager\\Manager.API\\Migrations",
+    "\\Manager\\Manager.API\\Models",
+    "\\Manager\\Manager.API\\Properties",
+    "\\Manager\\Manager.API\\Repository",
+    "\\Manager\\Manager.API\\Service"
+  ],
+  "SelectedNode": "\\Manager\\Manager.API\\Controllers\\SupportChatController.cs",
+  "PreviewInSolutionExplorer": false
+}

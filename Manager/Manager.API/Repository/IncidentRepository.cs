@@ -57,5 +57,15 @@ namespace Manager.API.Repository
             await _context.SaveChangesAsync();
             return incident;
         }
+
+        public async Task<List<Incident>> GetByUsernameAsync(string username)
+        {
+            return await _context.Incidents
+                .Include(i => i.Booking)
+                .ThenInclude(b => b.User)
+                .Where(i => i.Booking.User.UserName == username)
+                .OrderByDescending(i => i.CreateAt)
+                .ToListAsync();
+        }
     }
 }

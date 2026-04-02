@@ -1,0 +1,84 @@
+.rooms-page {
+  min-height: calc(100vh - 140px);
+  padding: 40px 20px;
+  background: var(--light);
+}
+
+.page-header {
+  margin-bottom: 32px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.page-header p {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.room-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.room-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.room-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.room-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.room-details p {
+  color: var(--gray);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: var(--gray);
+  max-width: 1200px;
+  margin: 0 auto;
+}

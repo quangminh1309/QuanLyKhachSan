@@ -10,5 +10,7 @@ namespace Manager.API.Interfaces
         Task<Review> CreateAsync(Review review);
         Task<Review?> UpdateAsync(int id, UpdateReviewDto dto);
         Task<Review?> DeleteAsync(int id);
+        Task<List<Review>> GetByRoomIdAsync(int roomId);
+        Task<List<Review>> GetByUsernameAsync(string username);
     }
 }

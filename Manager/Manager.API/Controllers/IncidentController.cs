@@ -27,6 +27,19 @@ namespace Manager.API.Controllers
             return Ok(dtos);
         }
 
+        [HttpGet("my-incidents")]
+        [Authorize]
+        public async Task<IActionResult> GetMyIncidents()
+        {
+            var username = User.Identity?.Name;
+            if (string.IsNullOrEmpty(username))
+                return Unauthorized();
+
+            var incidents = await _incidentRepository.GetByUsernameAsync(username);
+            var dtos = incidents.Select(i => i.ToIncidentDto());
+            return Ok(dtos);
+        }
+
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> GetById(int id)

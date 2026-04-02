@@ -10,7 +10,7 @@ namespace Manager.API.Models
         public bool IsRead { get; set; } = false;
 
         // Điều hướng
-        public SupportChat SupportChat { get; set; }
-        public AppUser Sender { get; set; }
+        public SupportChat SupportChat { get; set; } = null!;
+        public AppUser Sender { get; set; } = null!;
     }
 }

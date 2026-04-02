@@ -10,7 +10,7 @@ namespace Manager.API.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Điều hướng
-        public Booking Booking { get; set; }
-        public Services Service { get; set; }
+        public Booking Booking { get; set; } = null!;
+        public Services Service { get; set; } = null!;
     }
 }

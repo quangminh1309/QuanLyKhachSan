@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Manager.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd05a6ea8b12b7b21e54ee13eec41f6d517005b1")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e110b651e21b56aec8c9eaabc771c1ce9836fd76")]
->>>>>>> origin/Minh
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e6b5035eb017f813d8261091b3bd1e1252fd030c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Manager.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Manager.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,6 +1,7 @@
 ﻿using Manager.API.Dtos.Review;
 using Manager.API.Interfaces;
 using Manager.API.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.API.Controllers
@@ -21,6 +22,29 @@ namespace Manager.API.Controllers
             var reviews = await _reviewRepository.GetAllAsync();
             if (reviews == null || reviews.Count == 0)
                 return NotFound("No reviews found.");
+            var dtos = reviews.Select(r => r.ToReviewDto());
+            return Ok(dtos);
+        }
+
+        [HttpGet("by-room/{roomId}")]
+        public async Task<IActionResult> GetByRoomId(int roomId)
+        {
+            var reviews = await _reviewRepository.GetByRoomIdAsync(roomId);
+            if (reviews == null || reviews.Count == 0)
+                return NotFound($"No reviews found for room {roomId}.");
+            var dtos = reviews.Select(r => r.ToReviewDto());
+            return Ok(dtos);
+        }
+
+        [HttpGet("my-reviews")]
+        [Authorize]
+        public async Task<IActionResult> GetMyReviews()
+        {
+            var username = User.Identity?.Name;
+            if (string.IsNullOrEmpty(username))
+                return Unauthorized();
+
+            var reviews = await _reviewRepository.GetByUsernameAsync(username);
             var dtos = reviews.Select(r => r.ToReviewDto());
             return Ok(dtos);
         }

@@ -10,7 +10,7 @@
         public DateTime UpdateAt { get; set; } = DateTime.Now;
 
         // Navigation
-        public ICollection<Rooms> Rooms { get; set; }
-        public ICollection<RoomRate> RoomRates { get; set; }
+        public ICollection<Rooms> Rooms { get; set; } = new List<Rooms>();
+        public ICollection<RoomRate> RoomRates { get; set; } = new List<RoomRate>();
     }
 }

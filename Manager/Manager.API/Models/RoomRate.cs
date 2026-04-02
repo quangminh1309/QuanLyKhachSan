@@ -13,6 +13,6 @@
         public DateTime UpdateAt { get; set; } = DateTime.Now;
 
         // Navigation
-        public RoomType RoomType { get; set; }
+        public RoomType RoomType { get; set; } = null!;
     }
 }

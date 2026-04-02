@@ -12,7 +12,7 @@
         public DateTime UpdateAt { get; set; } = DateTime.Now;
 
         // Navigation
-        public Booking Booking { get; set; }
-        public AppUser User { get; set; }
+        public Booking Booking { get; set; } = null!;
+        public AppUser User { get; set; } = null!;
     }
 }

@@ -20,19 +20,23 @@ namespace Manager.API.Models
 
         public string? SpecialRequests { get; set; } // từ Minh
 
+        public bool RefundRequested { get; set; } = false;
+        public string? RefundReason { get; set; }
+        public DateTime? RefundRequestedAt { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         // Navigation
-        public AppUser User { get; set; }
-        public Rooms Room { get; set; }
+        public AppUser User { get; set; } = null!;
+        public Rooms Room { get; set; } = null!;
 
-        public Invoice Invoice { get; set; } // MaiLan
-        public ICollection<LostItem> LostItems { get; set; } // MaiLan
-        public ICollection<Review> Reviews { get; set; } // MaiLan
-        public ICollection<Incident> Incidents { get; set; } // MaiLan
+        public Invoice? Invoice { get; set; } // MaiLan - nullable vì có thể chưa có invoice
+        public ICollection<LostItem> LostItems { get; set; } = new List<LostItem>(); // MaiLan
+        public ICollection<Review> Reviews { get; set; } = new List<Review>(); // MaiLan
+        public ICollection<Incident> Incidents { get; set; } = new List<Incident>(); // MaiLan
 
-        public ICollection<BookingService> BookingServices { get; set; } // Minh
-        public ICollection<Payment> Payments { get; set; } // Minh
+        public ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>(); // Minh
+        public ICollection<Payment> Payments { get; set; } = new List<Payment>(); // Minh
     }
 }

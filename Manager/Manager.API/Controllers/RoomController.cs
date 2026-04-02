@@ -1,4 +1,5 @@
 ﻿using Manager.API.Dtos.Room;
+using Manager.API.Interfaces;
 using Manager.API.Mappers;
 using Manager.API.Repository;
 using Microsoft.AspNetCore.Authorization;
@@ -10,8 +11,8 @@ namespace Manager.API.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private readonly RoomRepository _roomRepository;
-        public RoomController(RoomRepository roomRepository)
+        private readonly IRoomRepository _roomRepository;
+        public RoomController(IRoomRepository roomRepository)
         {
             _roomRepository = roomRepository;
         }

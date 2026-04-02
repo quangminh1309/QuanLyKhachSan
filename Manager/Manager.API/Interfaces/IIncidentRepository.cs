@@ -10,5 +10,6 @@ namespace Manager.API.Interfaces
         Task<Incident> CreateAsync(Incident incident);
         Task<Incident?> UpdateAsync(int id, UpdateIncidentDto dto);
         Task<Incident?> DeleteAsync(int id);
+        Task<List<Incident>> GetByUsernameAsync(string username);
     }
 }

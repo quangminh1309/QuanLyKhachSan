@@ -12,7 +12,7 @@
         public DateTime UpdateAt { get; set; } = DateTime.Now;
 
         // Navigation
-        public Invoice Invoice { get; set; }
-        public Services Service { get; set; }
+        public Invoice Invoice { get; set; } = null!;
+        public Services Service { get; set; } = null!;
     }
 }

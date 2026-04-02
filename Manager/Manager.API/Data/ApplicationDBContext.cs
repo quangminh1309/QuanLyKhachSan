@@ -92,17 +92,20 @@ namespace Manager.API.Data
             modelBuilder.Entity<LostItem>()
                 .HasOne(l => l.Booking)
                 .WithMany(b => b.LostItems)
-                .HasForeignKey(l => l.BookingId);
+                .HasForeignKey(l => l.BookingId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.Booking)
                 .WithMany(b => b.Reviews)
-                .HasForeignKey(r => r.BookingId);
+                .HasForeignKey(r => r.BookingId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Incident>()
                 .HasOne(i => i.Booking)
                 .WithMany(b => b.Incidents)
-                .HasForeignKey(i => i.BookingId);
+                .HasForeignKey(i => i.BookingId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Payment - Minh
             modelBuilder.Entity<Payment>()
@@ -122,11 +125,13 @@ namespace Manager.API.Data
             modelBuilder.Entity<ChatMessage>()
                 .HasOne(cm => cm.SupportChat)
                 .WithMany(sc => sc.Messages)
-                .HasForeignKey(cm => cm.SupportChatId);
+                .HasForeignKey(cm => cm.SupportChatId)
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<ChatMessage>()
                 .HasOne(cm => cm.Sender)
                 .WithMany()
-                .HasForeignKey(cm => cm.SenderId);
+                .HasForeignKey(cm => cm.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // BookingService - Minh
             modelBuilder.Entity<BookingService>()
